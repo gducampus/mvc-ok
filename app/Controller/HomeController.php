@@ -4,9 +4,24 @@ class HomeController
 {
     public function index()
     {
-        // This is the home page logic
-        return "Welcome to the Home Page!";
+        include_once __DIR__ . '/../View/home.php';
     }
+
+    public function contact()
+    {
+        include_once __DIR__ . '/../View/contact.php';
+    }
+
+    public function actualites()
+    {
+        include_once __DIR__ . '/../View/actualites.php';
+    }
+
+    public function booking()
+    {
+        include_once __DIR__ . '/../View/booking.php';
+    }
+
 
 
 
