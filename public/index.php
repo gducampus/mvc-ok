@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once './../config/database.php';
 use App\Controller\HomeController;
 use App\Controller\AdminController;
 
@@ -31,6 +32,9 @@ switch ($uriSegments[0]) {
                     break;
                 case 'edit-actu':
                     $adminController->editActu();
+                    break;
+                case 'view-actu-all':
+                    $adminController->viewActu();
                     break;
             }
         }
