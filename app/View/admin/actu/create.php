@@ -29,7 +29,7 @@
 </nav>
     <div class="container">
         <h1>Create a New Actu</h1>
-        <form action="create-actu" method="post">
+        <form action="create-actu" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Titre</label>
                 <input type="text" name="title" class="form-control" id="title">
@@ -37,6 +37,10 @@
             <div class="mb-3">
                 <label for="content" class="form-label">Contenu</label><br>
                 <textarea id="content" name="content" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image">
             </div>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>

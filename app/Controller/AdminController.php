@@ -18,20 +18,47 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['title'];
             $content = $_POST['content'];
-            $this->article->create($title, $content);
-            header('Location: /');
+            $image = $this->uploadImage();
+            $this->article->create($title, $content, $image);
+            header('Location: /admin/view-actu-all');
         } else {
             include_once __DIR__ . '/../View/admin/actu/create.php';
         }
 
     }
-    public function editActu()
+    public function editActu($id)
     {
-        include_once __DIR__ . '/../View/admin/actu/edit.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $image = $this->uploadImage();
+            $this->article->update($id, $title, $content, $image);
+            header('Location: /admin/view-actu-all');
+        } else {
+            $article = $this->article->getById($id);
+            include_once __DIR__ . '/../View/admin/actu/edit.php';
+        }
+
+
     }
+
+
 
     public function viewActu()
     {
+        $articles = $this->article->getAll();
         include_once __DIR__ . '/../View/admin/actu/viewAll.php';
+    }
+
+    private function uploadImage() {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../public/uploads/';
+            $fileName = basename($_FILES['image']['name']);
+            $uploadFile = $uploadDir . $fileName;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                return $fileName;
+            }
+        }
+        return null;
     }
 }

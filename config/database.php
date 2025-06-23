@@ -1,8 +1,8 @@
 <?php
-define('DB_HOST', 'sql.freedb.tech');
-define('DB_NAME', 'freedb_mvc_database');
-define('DB_USER', 'freedb_mvc_user');
-define('DB_PASS', 'zKApR!%4rPNtMU#');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'blog');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 try {
     $pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
