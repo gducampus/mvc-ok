@@ -31,7 +31,10 @@ switch ($uriSegments[0]) {
                     $adminController->createActu();
                     break;
                 case 'edit-actu':
-                    $adminController->editActu();
+                    if (isset($uriSegments[2])) {
+                        $adminController->editActu($uriSegments[2]);
+                    }
+
                     break;
                 case 'view-actu-all':
                     $adminController->viewActu();
