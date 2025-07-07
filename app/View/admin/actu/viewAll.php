@@ -37,6 +37,9 @@
             <h2><?php echo htmlspecialchars($article['title']); ?></h2>
             <p><?php echo nl2br(htmlspecialchars($article['content'])); ?></p>
             <p><a href="/admin/edit-actu/<?php echo $article['id']; ?>" class="btn btn-primary">Modifier</a></p>
+            <?php if(($article['id']) != 7 ) { ?>
+            <p><a href="/admin/delete/<?php echo $article['id']; ?>" class="btn btn-danger">Supprimer</a></p>
+            <?php } ?>
         </li>
     <?php endforeach; ?>
 

@@ -41,6 +41,15 @@ class AdminController
 
 
     }
+    public function delete($id)
+    {
+        if ($id == 7) {
+            throw new \InvalidArgumentException('Vous ne pouvez pas supprimer ce commentaire');
+            header('Location: /admin/view-actu-all');
+        }
+        $this->article->delete($id);
+        header('Location: /admin/view-actu-all');
+    }
 
 
 

@@ -3,6 +3,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once './../config/database.php';
 use App\Controller\HomeController;
 use App\Controller\AdminController;
+use App\Controller\AuthController;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uriSegments = explode('/', trim($uri, '/'));
@@ -10,6 +11,7 @@ $uriSegments = explode('/', trim($uri, '/'));
 
 $controller = new HomeController();
 $adminController = new AdminController();
+$authController = new AuthController();
 
 switch ($uriSegments[0]) {
     case '':
@@ -24,6 +26,13 @@ switch ($uriSegments[0]) {
     case 'booking':
         $controller->booking();
         break;
+    case 'register':
+        $authController->register();
+        break;
+    case 'login':
+        $authController->login();
+        break;
+
     case 'admin':
         if (isset($uriSegments[1])) {
             switch ($uriSegments[1]) {
@@ -38,6 +47,12 @@ switch ($uriSegments[0]) {
                     break;
                 case 'view-actu-all':
                     $adminController->viewActu();
+                    break;
+
+                case 'delete':
+                    if (isset($uriSegments[2])) {
+                        $adminController->delete($uriSegments[2]);
+                    }
                     break;
             }
         }

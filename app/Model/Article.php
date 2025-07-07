@@ -31,4 +31,9 @@ class Article
         return $stmt->execute([$title, $content, $image, $id]);
     }
 
+    public function delete($id) {
+        $stmt = $this->pdo->prepare('DELETE FROM post WHERE id = ?');
+        return $stmt->execute([$id]);
+    }
+
 }
