@@ -46,6 +46,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Mes actualités</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Déconnexion</a>
+                </li>
             </ul>
         </div>
     </div>

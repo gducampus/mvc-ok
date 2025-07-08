@@ -1,6 +1,8 @@
 <?php
+session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once './../config/database.php';
+require_once __DIR__ . '/../app/Template.php';
 use App\Controller\HomeController;
 use App\Controller\AdminController;
 use App\Controller\AuthController;
@@ -32,6 +34,10 @@ switch ($uriSegments[0]) {
     case 'login':
         $authController->login();
         break;
+    case 'logout':
+        $authController->logout();
+        break;
+
 
     case 'admin':
         if (isset($uriSegments[1])) {

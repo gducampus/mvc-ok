@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Model\Article;
 use PDO;
+use App\Template;
 
 class AdminController
 {
@@ -22,7 +23,16 @@ class AdminController
             $this->article->create($title, $content, $image);
             header('Location: /admin/view-actu-all');
         } else {
-            include_once __DIR__ . '/../View/admin/actu/create.php';
+            if (($_SESSION['user']['is_admin']) != 1) {
+                header('Location: /login');
+                exit;
+            }
+            echo Template::get()->render('admin/actu/create.html.twig', [
+                // you can pass default form values, errors, whatever:
+                'title'   => '',
+                'content' => '',
+                'user'    => $_SESSION['user'],
+            ]);
         }
 
     }
@@ -35,6 +45,10 @@ class AdminController
             $this->article->update($id, $title, $content, $image);
             header('Location: /admin/view-actu-all');
         } else {
+            if (($_SESSION['user']['is_admin']) != 1) {
+                header('Location: /login');
+                exit;
+            }
             $article = $this->article->getById($id);
             include_once __DIR__ . '/../View/admin/actu/edit.php';
         }
@@ -43,9 +57,9 @@ class AdminController
     }
     public function delete($id)
     {
-        if ($id == 7) {
-            throw new \InvalidArgumentException('Vous ne pouvez pas supprimer ce commentaire');
-            header('Location: /admin/view-actu-all');
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
         }
         $this->article->delete($id);
         header('Location: /admin/view-actu-all');
@@ -55,8 +69,14 @@ class AdminController
 
     public function viewActu()
     {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
         $articles = $this->article->getAll();
-        include_once __DIR__ . '/../View/admin/actu/viewAll.php';
+        echo Template::get()->render('admin/actu/index.html.twig', [
+            'articles' => $articles,
+        ]);
     }
 
     private function uploadImage() {
